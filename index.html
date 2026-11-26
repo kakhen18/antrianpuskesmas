@@ -1,0 +1,1337 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Puskesmas Sungai Karias — Antrean Online & Info Layanan</title>
+    <meta
+      name="description"
+      content="Ambil nomor antrean online, pantau antrean langsung, lihat jadwal poli dan info layanan Puskesmas Sungai Karias."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f4f8f7;
+        --sf: #fff;
+        --ink: #10262b;
+        --mu: #5b7077;
+        --pr: #0e4f5c;
+        --pr2: #14707f;
+        --ac: #f2a33a;
+        --ln: #dbe6e4;
+        --ok: #1f9d6b;
+        --er: #c8453b;
+        --sh: 0 10px 30px -12px rgba(14, 79, 92, 0.25);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #0b1a1e;
+          --sf: #12272c;
+          --ink: #e8f1f0;
+          --mu: #93acb1;
+          --pr: #58c1cf;
+          --pr2: #2e8e9d;
+          --ln: #21393f;
+          --sh: 0 10px 30px -12px #000;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #0b1a1e;
+        --sf: #12272c;
+        --ink: #e8f1f0;
+        --mu: #93acb1;
+        --pr: #58c1cf;
+        --pr2: #2e8e9d;
+        --ln: #21393f;
+        --sh: 0 10px 30px -12px #000;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 76px;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        line-height: 1.6;
+        font-size: 16px;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+      }
+      :focus-visible {
+        outline: 3px solid var(--ac);
+        outline-offset: 2px;
+      }
+      .w {
+        max-width: 1120px;
+        margin: auto;
+        padding: 0 20px;
+      }
+      section {
+        padding: 64px 0;
+      }
+      h2 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      .sub {
+        color: var(--mu);
+        max-width: 60ch;
+        margin-bottom: 28px;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--ln);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        height: 64px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      .logo i {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--pr);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-style: normal;
+      }
+      .logo small {
+        display: block;
+        font-weight: 500;
+        color: var(--mu);
+        font-size: 0.72rem;
+        margin-top: -4px;
+      }
+      nav {
+        margin-left: auto;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+      }
+      nav a {
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--mu);
+      }
+      nav a:hover {
+        background: var(--sf);
+        color: var(--ink);
+      }
+      .ib {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        color: var(--ink);
+      }
+      .menu {
+        display: none;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        border: 0;
+        font-weight: 700;
+        background: var(--pr);
+        color: #fff;
+        transition:
+          transform 0.15s,
+          background 0.15s;
+      }
+      #th2 {
+        display: none;
+      }
+      .btn:hover {
+        background: var(--pr2);
+        transform: translateY(-1px);
+      }
+      .btn.o {
+        background: transparent;
+        color: var(--ink);
+        border: 1.5px solid var(--ln);
+      }
+      .btn.o:hover {
+        background: var(--sf);
+      }
+      .btn.a {
+        background: var(--ac);
+        color: #2b1a00;
+      }
+      .tick {
+        background: var(--pr);
+        color: #fff;
+        font-size: 0.86rem;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 8px 0;
+      }
+      .tick div {
+        display: inline-block;
+        padding-left: 100%;
+        animation: mq 40s linear infinite;
+      }
+      @keyframes mq {
+        to {
+          transform: translateX(-100%);
+        }
+      }
+      .hero {
+        padding: 48px 0 24px;
+        background: radial-gradient(
+          900px 400px at 85% -10%,
+          color-mix(in srgb, var(--pr2) 25%, transparent),
+          transparent
+        );
+      }
+      .hg {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 36px;
+        align-items: center;
+      }
+      .st {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 14px;
+        border-radius: 99px;
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+      .st b {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--er);
+      }
+      .st.on b {
+        background: var(--ok);
+        box-shadow: 0 0 0 4px rgba(31, 157, 107, 0.2);
+      }
+      h1 {
+        font-size: clamp(2.1rem, 5vw, 3.5rem);
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+        margin: 16px 0;
+      }
+      .lead {
+        color: var(--mu);
+        font-size: 1.08rem;
+        max-width: 48ch;
+        margin-bottom: 24px;
+      }
+      .cta {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .board {
+        background: var(--pr);
+        color: #fff;
+        border-radius: 24px;
+        padding: 24px;
+        box-shadow: var(--sh);
+      }
+      :root[data-theme="dark"] .board {
+        background: #0f3a43;
+      }
+      .board h3 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        opacity: 0.8;
+        display: flex;
+        justify-content: space-between;
+      }
+      .big {
+        font-size: clamp(4rem, 10vw, 6.2rem);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--ac);
+        font-variant-numeric: tabular-nums;
+        margin: 6px 0 2px;
+      }
+      .bl {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .bl div {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 0.82rem;
+      }
+      .bl b {
+        display: block;
+        font-size: 1.25rem;
+        font-variant-numeric: tabular-nums;
+      }
+      .sel {
+        width: 100%;
+        margin-top: 12px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 0;
+        font: inherit;
+        font-weight: 600;
+      }
+      .card {
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        border-radius: 20px;
+        padding: 24px;
+      }
+      .g3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+      }
+      .pl {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .pl .ic {
+        font-size: 1.7rem;
+      }
+      .pl h3 {
+        font-size: 1.05rem;
+      }
+      .pl p {
+        color: var(--mu);
+        font-size: 0.9rem;
+      }
+      .pl .q {
+        margin-top: auto;
+        padding-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--pr);
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.88rem;
+        margin: 14px 0 6px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1.5px solid var(--ln);
+        background: var(--bg);
+        color: var(--ink);
+        font: inherit;
+      }
+      .hint {
+        font-size: 0.8rem;
+        color: var(--mu);
+        margin-top: 6px;
+      }
+      .ticket {
+        border: 2px dashed var(--pr);
+        border-radius: 20px;
+        padding: 24px;
+        text-align: center;
+        background: var(--sf);
+      }
+      .ticket .no {
+        font-size: 4.5rem;
+        font-weight: 800;
+        color: var(--pr);
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .ticket p {
+        color: var(--mu);
+      }
+      .ticket .row {
+        display: flex;
+        justify-content: space-around;
+        margin: 16px 0;
+        gap: 8px;
+      }
+      .row b {
+        display: block;
+        font-size: 1.3rem;
+        color: var(--ink);
+      }
+      .empty {
+        color: var(--mu);
+        text-align: center;
+        padding: 40px 10px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--ln);
+      }
+      th {
+        color: var(--mu);
+        font-weight: 600;
+        font-size: 0.82rem;
+      }
+      .sc {
+        overflow-x: auto;
+        border: 1px solid var(--ln);
+        border-radius: 16px;
+        background: var(--sf);
+      }
+      tr.now td {
+        background: color-mix(in srgb, var(--ac) 18%, transparent);
+        font-weight: 700;
+      }
+      .step {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        counter-reset: s;
+      }
+      .step .card {
+        position: relative;
+        padding-top: 48px;
+      }
+      .step .card:before {
+        counter-increment: s;
+        content: counter(s);
+        position: absolute;
+        top: 14px;
+        left: 20px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--pr);
+        color: var(--bg);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 0.85rem;
+      }
+      .step h3 {
+        font-size: 1rem;
+      }
+      .step p {
+        color: var(--mu);
+        font-size: 0.9rem;
+      }
+      details {
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        border-radius: 14px;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+      }
+      summary {
+        font-weight: 700;
+        cursor: pointer;
+      }
+      details p {
+        color: var(--mu);
+        margin-top: 8px;
+      }
+      .bmi {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--pr);
+      }
+      .cn {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 14px;
+      }
+      .cn span {
+        font-size: 1.4rem;
+      }
+      footer {
+        background: var(--pr);
+        color: #dff0f2;
+        padding: 40px 0 100px;
+        font-size: 0.9rem;
+      }
+      :root[data-theme="dark"] footer {
+        background: #08141a;
+      }
+      footer .w {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      footer b {
+        color: #fff;
+      }
+      .wa {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 30;
+        background: #25d366;
+        color: #fff;
+        padding: 14px 18px;
+        border-radius: 99px;
+        font-weight: 700;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translate(-50%, 120px);
+        background: var(--ink);
+        color: var(--bg);
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-weight: 600;
+        z-index: 40;
+        transition: 0.3s;
+      }
+      .toast.s {
+        transform: translate(-50%, 0);
+      }
+      .pn {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .pn .card {
+        padding: 16px;
+      }
+      @media (max-width: 820px) {
+        .hg,
+        .two {
+          grid-template-columns: 1fr;
+        }
+        .menu {
+          display: block;
+          margin-left: auto;
+        }
+        nav {
+          display: none;
+          position: absolute;
+          top: 64px;
+          left: 0;
+          right: 0;
+          background: var(--bg);
+          flex-direction: column;
+          align-items: stretch;
+          padding: 12px 20px;
+          border-bottom: 1px solid var(--ln);
+        }
+        nav.o {
+          display: flex;
+        }
+        .nav .ib:not(.menu) {
+          display: none;
+        }
+        nav .ib {
+          display: block;
+          margin-top: 6px;
+          width: 100%;
+        }
+        section {
+          padding: 44px 0;
+        }
+      }
+      @media print {
+        header,
+        .tick,
+        .wa,
+        section:not(#antre),
+        footer,
+        .no-p {
+          display: none;
+        }
+        #antre .two > :first-child {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tick" aria-label="Pengumuman"><div id="ann"></div></div>
+    <header>
+      <div class="w nav">
+        <a class="logo" href="#top"
+          ><i>✚</i
+          ><span
+            >Puskesmas Sungai Karias<small
+              >Antrean &amp; Info Layanan</small
+            ></span
+          ></a
+        >
+        <button class="ib menu" id="mb" aria-label="Menu">☰</button>
+        <nav id="nv">
+          <a href="#antre">Ambil Antrean</a><a href="#layanan">Layanan</a
+          ><a href="#jadwal">Jadwal</a><a href="#alur">Alur</a
+          ><a href="#sehat">Info Sehat</a><a href="#faq">FAQ</a
+          ><a href="#kontak">Kontak</a
+          ><button class="ib" id="th" aria-label="Ganti tema">🌓</button>
+        </nav>
+        <button
+          class="ib"
+          id="th2"
+          aria-label="Ganti tema"
+          style="margin-left: 0"
+        >
+          🌓
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="hero">
+        <div class="w hg">
+          <div>
+            <span class="st" id="st"
+              ><b></b><span>Memeriksa jam layanan…</span></span
+            >
+            <h1>Berobat tanpa menunggu lama di loket.</h1>
+            <p class="lead">
+              Ambil nomor antrean dari rumah, pantau giliran Anda secara
+              langsung, dan datang tepat waktu ke Puskesmas Sungai Karias.
+            </p>
+            <div class="cta">
+              <a class="btn a" href="#antre">Ambil nomor antrean</a
+              ><a class="btn o" href="#jadwal">Lihat jadwal poli</a>
+            </div>
+          </div>
+          <div class="board" aria-live="polite">
+            <h3><span>Sedang dilayani</span><span id="clk"></span></h3>
+            <div class="big" id="bn">—</div>
+            <div id="bp" style="font-weight: 600">Pilih poli</div>
+            <select
+              class="sel"
+              id="bs"
+              aria-label="Pilih poli untuk dipantau"
+            ></select>
+            <div class="bl">
+              <div>Menunggu<b id="bw">0</b></div>
+              <div>Estimasi tunggu<b id="be">0 mnt</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="antre">
+        <div class="w">
+          <h2>Ambil nomor antrean online</h2>
+          <p class="sub">
+            Isi data singkat. Nomor Anda langsung terbit dan tersimpan di
+            perangkat ini.
+          </p>
+          <div class="two">
+            <form class="card" id="fm" autocomplete="off">
+              <label for="fp">Poli tujuan</label
+              ><select id="fp" required></select>
+              <label for="fn">Nama pasien</label
+              ><input
+                id="fn"
+                required
+                maxlength="40"
+                placeholder="Sesuai KTP/KK"
+              />
+              <label for="fh">No. HP / WhatsApp</label
+              ><input
+                id="fh"
+                required
+                inputmode="tel"
+                pattern="[0-9+ ]{9,15}"
+                placeholder="08xxxxxxxxxx"
+              />
+              <label for="fj">Jenis pasien</label
+              ><select id="fj">
+                <option>BPJS Kesehatan</option>
+                <option>Umum</option>
+                <option>Jaminan lain</option>
+              </select>
+              <p class="hint">
+                Jangan memasukkan NIK atau data medis di formulir ini. Bawa
+                kartu identitas saat datang.
+              </p>
+              <button class="btn" style="width: 100%; margin-top: 18px" id="fb">
+                Ambil nomor
+              </button>
+            </form>
+            <div id="tk">
+              <div class="card empty">
+                Nomor antrean Anda akan muncul di sini.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="layanan" style="background: var(--sf)">
+        <div class="w">
+          <h2>Layanan &amp; poli</h2>
+          <p class="sub">
+            Antrean tiap poli berjalan sendiri-sendiri. Pantau jumlah yang
+            menunggu sebelum berangkat.
+          </p>
+          <div class="g3" id="pols"></div>
+        </div>
+      </section>
+
+      <section id="jadwal">
+        <div class="w">
+          <h2>Jadwal pelayanan</h2>
+          <p class="sub">
+            Hari ini disorot. Jadwal bisa berubah pada hari libur nasional.
+          </p>
+          <div class="sc">
+            <table>
+              <thead>
+                <tr>
+                  <th>Hari</th>
+                  <th>Jam pendaftaran</th>
+                  <th>Jam pelayanan</th>
+                </tr>
+              </thead>
+              <tbody id="jt"></tbody>
+            </table>
+          </div>
+          <p class="hint" style="margin-top: 12px">
+            IGD / layanan gawat darurat tersedia sesuai ketentuan puskesmas.
+            Hubungi nomor darurat pada bagian Kontak.
+          </p>
+        </div>
+      </section>
+
+      <section id="alur" style="background: var(--sf)">
+        <div class="w">
+          <h2>Alur berobat</h2>
+          <p class="sub">Empat langkah dari rumah sampai pulang.</p>
+          <div class="step">
+            <div class="card">
+              <h3>Ambil nomor online</h3>
+              <p>Pilih poli, isi nama dan nomor HP di halaman ini.</p>
+            </div>
+            <div class="card">
+              <h3>Datang saat giliran dekat</h3>
+              <p>Berangkat ketika sisa antrean tinggal 3–5 orang.</p>
+            </div>
+            <div class="card">
+              <h3>Verifikasi di loket</h3>
+              <p>
+                Tunjukkan nomor, KTP, dan kartu BPJS atau tanda pengenal lain.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Periksa &amp; ambil obat</h3>
+              <p>Dilayani di poli, lalu ambil obat di apotek puskesmas.</p>
+            </div>
+          </div>
+          <h2 style="margin-top: 48px; font-size: 1.3rem">Yang perlu dibawa</h2>
+          <div class="g3" style="margin-top: 14px">
+            <div class="card">
+              <b>Pasien BPJS</b>
+              <p class="hint">
+                KTP, kartu BPJS/KIS aktif, dan surat rujukan bila ada.
+              </p>
+            </div>
+            <div class="card">
+              <b>Pasien umum</b>
+              <p class="hint">
+                KTP atau KK. Biaya mengikuti tarif retribusi yang berlaku.
+              </p>
+            </div>
+            <div class="card">
+              <b>Ibu &amp; anak</b>
+              <p class="hint">Buku KIA dan kartu imunisasi.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sehat">
+        <div class="w">
+          <h2>Info sehat</h2>
+          <p class="sub">Alat bantu singkat dan tips untuk keluarga.</p>
+          <div class="two">
+            <div class="card">
+              <h3>Kalkulator BMI</h3>
+              <label for="bb">Berat badan (kg)</label
+              ><input
+                id="bb"
+                type="number"
+                min="1"
+                max="300"
+                inputmode="decimal"
+              />
+              <label for="tb">Tinggi badan (cm)</label
+              ><input
+                id="tb"
+                type="number"
+                min="50"
+                max="250"
+                inputmode="decimal"
+              />
+              <div style="margin-top: 16px">
+                <div class="bmi" id="bv">—</div>
+                <p id="bk" class="hint">Isi berat dan tinggi badan.</p>
+              </div>
+              <p class="hint">
+                Hanya gambaran umum untuk dewasa. Konsultasikan hasilnya ke
+                tenaga kesehatan.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Tips hari ini</h3>
+              <p id="tip" style="margin: 12px 0; color: var(--mu)"></p>
+              <button class="btn o" id="nt">Tips lainnya</button>
+              <h3 style="margin-top: 28px">Kapan harus ke IGD?</h3>
+              <p class="hint" style="font-size: 0.9rem">
+                Sesak napas berat, nyeri dada, kejang, perdarahan hebat,
+                kesadaran menurun, atau demam tinggi pada bayi. Jangan tunggu
+                antrean online.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" style="background: var(--sf)">
+        <div class="w">
+          <h2>Pertanyaan umum</h2>
+          <p class="sub" style="margin-bottom: 20px">
+            Jawaban cepat sebelum Anda datang.
+          </p>
+          <details>
+            <summary>Apakah nomor online menjamin dilayani sesuai jam?</summary>
+            <p>
+              Nomor menentukan urutan antrean. Waktu pasti bergantung pada lama
+              pemeriksaan pasien sebelumnya, jadi estimasi hanya perkiraan.
+            </p>
+          </details>
+          <details>
+            <summary>Bagaimana jika nomor saya terlewat?</summary>
+            <p>
+              Segera lapor ke petugas loket. Nomor yang terlewat bisa dipanggil
+              ulang sesuai kebijakan puskesmas.
+            </p>
+          </details>
+          <details>
+            <summary>Apakah pasien darurat harus mengantre?</summary>
+            <p>
+              Tidak. Kasus gawat darurat langsung ditangani lebih dulu di IGD.
+            </p>
+          </details>
+          <details>
+            <summary>Apakah saya perlu rujukan?</summary>
+            <p>
+              Untuk pasien BPJS, puskesmas adalah layanan tingkat pertama
+              sehingga tidak perlu rujukan. Rujukan dibuat dokter bila perlu ke
+              rumah sakit.
+            </p>
+          </details>
+          <details>
+            <summary>Di mana data saya disimpan?</summary>
+            <p>
+              Nomor antrean disimpan di browser perangkat Anda. Data tidak
+              dikirim ke pihak lain oleh halaman ini.
+            </p>
+          </details>
+        </div>
+      </section>
+
+      <section id="kontak">
+        <div class="w two">
+          <div>
+            <h2>Kontak &amp; lokasi</h2>
+            <p class="sub">Hubungi kami untuk pertanyaan layanan.</p>
+            <div class="cn">
+              <span>📍</span>
+              <div><b>Alamat</b><br /><span id="ad"></span></div>
+            </div>
+            <div class="cn">
+              <span>📞</span>
+              <div><b>Telepon / WhatsApp</b><br /><span id="tl"></span></div>
+            </div>
+            <div class="cn">
+              <span>🚑</span>
+              <div>
+                <b>Darurat</b><br />Hubungi 119 atau datang langsung ke IGD
+              </div>
+            </div>
+            <a class="btn" id="mp" target="_blank" rel="noopener"
+              >Buka di Google Maps</a
+            >
+          </div>
+          <div class="card">
+            <h3>Panel petugas</h3>
+            <p class="hint" style="margin-bottom: 12px">
+              Untuk petugas loket: panggil nomor berikutnya. Mode demo di
+              perangkat ini.
+            </p>
+            <div id="pl">
+              <label for="pin">PIN petugas</label
+              ><input
+                id="pin"
+                type="password"
+                inputmode="numeric"
+                maxlength="8"
+              /><button class="btn" id="pb" style="margin-top: 12px">
+                Masuk
+              </button>
+            </div>
+            <div id="pa" hidden>
+              <div class="pn" id="pg"></div>
+              <button class="btn o" id="rs" style="margin-top: 16px">
+                Reset antrean hari ini
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="w">
+        <div>
+          <b>Puskesmas Sungai Karias</b><br />Melayani dengan sepenuh hati.
+        </div>
+        <div id="ft"></div>
+      </div>
+    </footer>
+    <a class="wa no-p" id="wa" target="_blank" rel="noopener"
+      >💬 Tanya via WhatsApp</a
+    >
+    <div class="toast" id="ts" role="status"></div>
+
+    <script>
+      /* ====== UBAH DATA DI SINI ====== */
+      const C = {
+        nama: "Puskesmas Sungai Karias",
+        alamat: "Desa Sungai Karias — lengkapi alamat lengkap puskesmas",
+        telp: "08xx-xxxx-xxxx",
+        wa: "628xxxxxxxxxx",
+        maps: "Puskesmas Sungai Karias",
+        pin: "1234",
+        pengumuman: [
+          "Ambil nomor antrean online dari rumah",
+          "Pasien lansia dan ibu hamil mendapat prioritas",
+          "Bawa KTP dan kartu BPJS/KIS saat datang",
+          "Cuci tangan dan gunakan masker bila sedang batuk/pilek",
+        ],
+        jam: {
+          1: ["07:30", "14:00"],
+          2: ["07:30", "14:00"],
+          3: ["07:30", "14:00"],
+          4: ["07:30", "14:00"],
+          5: ["07:30", "11:30"],
+          6: ["07:30", "12:30"],
+          0: null,
+        },
+        poli: [
+          {
+            k: "A",
+            n: "Poli Umum",
+            i: "🩺",
+            d: "Pemeriksaan penyakit umum, demam, batuk, dan keluhan harian.",
+            m: 10,
+          },
+          {
+            k: "B",
+            n: "KIA & KB",
+            i: "🤰",
+            d: "Ibu hamil, nifas, bayi, balita, dan keluarga berencana.",
+            m: 12,
+          },
+          {
+            k: "C",
+            n: "Poli Gigi",
+            i: "🦷",
+            d: "Pemeriksaan, tambal, dan cabut gigi.",
+            m: 15,
+          },
+          {
+            k: "D",
+            n: "Imunisasi",
+            i: "💉",
+            d: "Imunisasi dasar anak dan vaksin sesuai program.",
+            m: 6,
+          },
+          {
+            k: "E",
+            n: "Gizi & Konsultasi",
+            i: "🥗",
+            d: "Konsultasi gizi, stunting, dan pola makan sehat.",
+            m: 12,
+          },
+          {
+            k: "F",
+            n: "Laboratorium",
+            i: "🧪",
+            d: "Pemeriksaan darah dan urin sederhana.",
+            m: 8,
+          },
+        ],
+      };
+      const H = [
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu",
+      ];
+      const TIPS = [
+        "Minum air putih minimal 8 gelas sehari.",
+        "Cuci tangan pakai sabun sebelum makan dan setelah dari toilet.",
+        "Pastikan imunisasi anak lengkap sesuai jadwal di buku KIA.",
+        "Kurangi gula, garam, dan gorengan. Perbanyak sayur dan buah.",
+        "Bergerak 30 menit sehari, cukup dengan jalan cepat.",
+        "Tutup tempat penampungan air agar tidak jadi sarang jentik nyamuk.",
+        "Periksa tekanan darah rutin bila usia di atas 40 tahun.",
+        "Ibu hamil: periksa kehamilan (ANC) minimal 6 kali selama kehamilan.",
+      ];
+      const $ = (i) => document.getElementById(i),
+        K = "pkm_sk_q",
+        MY = "pkm_sk_my";
+      const today = () => new Date().toISOString().slice(0, 10);
+      const esc = (s) =>
+        String(s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      function ld() {
+        try {
+          const d = JSON.parse(localStorage.getItem(K));
+          if (d && d.t === today()) return d;
+        } catch (e) {}
+        return { t: today(), n: {}, c: {}, l: [] };
+      }
+      function sv(d) {
+        try {
+          localStorage.setItem(K, JSON.stringify(d));
+        } catch (e) {}
+      }
+      function toast(m) {
+        const t = $("ts");
+        t.textContent = m;
+        t.classList.add("s");
+        setTimeout(() => t.classList.remove("s"), 2600);
+      }
+      const pad = (k, n) => k + "-" + String(n).padStart(3, "0");
+      const P = (k) => C.poli.find((p) => p.k === k);
+      function wait(d, k) {
+        return Math.max(0, (d.n[k] || 0) - (d.c[k] || 0));
+      }
+
+      /* status buka */
+      function openNow() {
+        const n = new Date(),
+          j = C.jam[n.getDay()];
+        if (!j) return false;
+        const m = n.getHours() * 60 + n.getMinutes(),
+          f = (s) => +s.slice(0, 2) * 60 + +s.slice(3);
+        return m >= f(j[0]) && m < f(j[1]);
+      }
+      function renderStatus() {
+        const o = openNow(),
+          j = C.jam[new Date().getDay()],
+          e = $("st");
+        e.className = "st" + (o ? " on" : "");
+        e.lastChild.textContent = o
+          ? "Buka sekarang · sampai " + j[1] + " WITA"
+          : j
+            ? "Tutup · buka " + j[0] + " WITA"
+            : "Tutup hari ini";
+        $("clk").textContent = new Date().toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+      /* papan */
+      function renderBoard() {
+        const d = ld(),
+          k = $("bs").value,
+          w = wait(d, k);
+        $("bn").textContent = d.c[k] ? pad(k, d.c[k]) : "—";
+        $("bp").textContent = P(k).n;
+        $("bw").textContent = w;
+        $("be").textContent = w * P(k).m + " mnt";
+      }
+      function renderPols() {
+        const d = ld();
+        $("pols").innerHTML = C.poli
+          .map(
+            (p) =>
+              `<div class="card pl"><div class="ic">${p.i}</div><h3>${p.n}</h3><p>${p.d}</p><div class="q"><span>Menunggu: ${wait(d, p.k)}</span><span>~${p.m} mnt/pasien</span></div></div>`,
+          )
+          .join("");
+      }
+      function renderJadwal() {
+        $("jt").innerHTML = [1, 2, 3, 4, 5, 6, 0]
+          .map((i) => {
+            const j = C.jam[i];
+            return `<tr class="${i === new Date().getDay() ? "now" : ""}"><td>${H[i]}</td><td>${j ? j[0] + " – " + (+j[1].slice(0, 2) - 1) + ":" + j[1].slice(3) + " WITA" : "Tutup"}</td><td>${j ? j[0] + " – " + j[1] + " WITA" : "Libur (IGD siaga)"}</td></tr>`;
+          })
+          .join("");
+      }
+      /* tiket */
+      function renderTicket() {
+        let my;
+        try {
+          my = JSON.parse(localStorage.getItem(MY));
+        } catch (e) {}
+        const d = ld();
+        if (!my || my.t !== today()) {
+          $("tk").innerHTML =
+            '<div class="card empty">Nomor antrean Anda akan muncul di sini.</div>';
+          return;
+        }
+        const p = P(my.k),
+          w = Math.max(0, my.no - (d.c[my.k] || 0) - 1),
+          done = (d.c[my.k] || 0) >= my.no,
+          now = (d.c[my.k] || 0) === my.no;
+        const eta = new Date(Date.now() + w * p.m * 6e4).toLocaleTimeString(
+          "id-ID",
+          { hour: "2-digit", minute: "2-digit" },
+        );
+        $("tk").innerHTML =
+          `<div class="ticket"><p>Nomor antrean · ${esc(p.n)}</p><div class="no">${pad(my.k, my.no)}</div><p><b style="color:var(--ink)">${esc(my.nama)}</b> · ${esc(my.j)}</p>
+ <div class="row"><div>Dilayani<b>${d.c[my.k] ? pad(my.k, d.c[my.k]) : "—"}</b></div><div>Sisa di depan<b>${done ? 0 : w}</b></div><div>Perkiraan<b>${done ? "—" : eta}</b></div></div>
+ <p style="font-weight:700;color:${now ? "var(--ok)" : "var(--ink)"}">${now ? "Giliran Anda! Silakan menuju " + esc(p.n) : done ? "Antrean Anda sudah dipanggil" : "Datang saat sisa antrean 3–5 orang"}</p>
+ <div class="cta no-p" style="justify-content:center;margin-top:16px"><button class="btn o" onclick="print()">Cetak</button><button class="btn o" id="cx">Batalkan</button></div></div>`;
+        const c = $("cx");
+        if (c)
+          c.onclick = () => {
+            localStorage.removeItem(MY);
+            renderTicket();
+            toast("Nomor dibatalkan di perangkat ini");
+          };
+      }
+      $("fm").onsubmit = (e) => {
+        e.preventDefault();
+        if (
+          !openNow() &&
+          !confirm("Puskesmas sedang tutup. Tetap ambil nomor untuk hari ini?")
+        )
+          return;
+        const d = ld(),
+          k = $("fp").value;
+        d.n[k] = (d.n[k] || 0) + 1;
+        const no = d.n[k];
+        d.l.push({
+          k,
+          no,
+          nama: $("fn").value.trim(),
+          hp: $("fh").value.trim(),
+        });
+        sv(d);
+        try {
+          localStorage.setItem(
+            MY,
+            JSON.stringify({
+              t: today(),
+              k,
+              no,
+              nama: $("fn").value.trim(),
+              j: $("fj").value,
+            }),
+          );
+        } catch (x) {}
+        $("fm").reset();
+        $("fp").value = k;
+        all();
+        toast("Nomor " + pad(k, no) + " berhasil dibuat");
+      };
+      /* petugas */
+      $("pb").onclick = () => {
+        if ($("pin").value === C.pin) {
+          $("pl").hidden = true;
+          $("pa").hidden = false;
+          pg();
+        } else toast("PIN salah");
+      };
+      function pg() {
+        const d = ld();
+        $("pg").innerHTML = C.poli
+          .map(
+            (p) =>
+              `<div class="card"><b>${p.n}</b><p class="hint">Dipanggil: ${d.c[p.k] ? pad(p.k, d.c[p.k]) : "—"} · Menunggu ${wait(d, p.k)}</p><button class="btn" style="margin-top:10px;width:100%" data-k="${p.k}">Panggil berikutnya</button></div>`,
+          )
+          .join("");
+        document.querySelectorAll("[data-k]").forEach(
+          (b) =>
+            (b.onclick = () => {
+              const d = ld(),
+                k = b.dataset.k;
+              if (wait(d, k) < 1) return toast("Tidak ada antrean");
+              d.c[k] = (d.c[k] || 0) + 1;
+              sv(d);
+              all();
+              toast("Memanggil " + pad(k, d.c[k]));
+            }),
+        );
+      }
+      $("rs").onclick = () => {
+        if (confirm("Reset semua antrean hari ini?")) {
+          sv({ t: today(), n: {}, c: {}, l: [] });
+          localStorage.removeItem(MY);
+          all();
+        }
+      };
+      /* BMI */
+      function bmi() {
+        const b = +$("bb").value,
+          t = +$("tb").value / 100;
+        if (!b || !t) {
+          $("bv").textContent = "—";
+          return;
+        }
+        const v = b / (t * t);
+        $("bv").textContent = v.toFixed(1);
+        $("bk").textContent =
+          v < 18.5
+            ? "Kurus (berat kurang)"
+            : v < 25
+              ? "Normal"
+              : v < 27
+                ? "Berat badan lebih"
+                : "Obesitas";
+      }
+      $("bb").oninput = $("tb").oninput = bmi;
+      let ti = new Date().getDate() % TIPS.length;
+      const tp = () => ($("tip").textContent = TIPS[ti]);
+      $("nt").onclick = () => {
+        ti = (ti + 1) % TIPS.length;
+        tp();
+      };
+      /* init */
+      const opts = C.poli
+        .map((p) => `<option value="${p.k}">${p.n}</option>`)
+        .join("");
+      $("fp").innerHTML = $("bs").innerHTML = opts;
+      $("bs").onchange = renderBoard;
+      $("ann").textContent = C.pengumuman.join("   •   ");
+      $("ad").textContent = C.alamat;
+      $("tl").textContent = C.telp;
+      $("mp").href =
+        "https://www.google.com/maps/search/" + encodeURIComponent(C.maps);
+      $("wa").href =
+        "https://wa.me/" +
+        C.wa +
+        "?text=" +
+        encodeURIComponent(
+          "Halo " + C.nama + ", saya ingin bertanya tentang layanan.",
+        );
+      $("ft").innerHTML =
+        "© " +
+        new Date().getFullYear() +
+        " " +
+        C.nama +
+        "<br>Nomor antrean bersifat informatif; keputusan medis oleh tenaga kesehatan.";
+      function all() {
+        renderStatus();
+        renderBoard();
+        renderPols();
+        renderTicket();
+        if (!$("pa").hidden) pg();
+      }
+      renderJadwal();
+      tp();
+      all();
+      setInterval(renderStatus, 3e4);
+      addEventListener("storage", all);
+      setInterval(all, 2e4);
+      /* tema & menu */
+      const th = () => {
+        const r = document.documentElement,
+          dk = r.dataset.theme
+            ? r.dataset.theme === "dark"
+            : matchMedia("(prefers-color-scheme:dark)").matches;
+        r.dataset.theme = dk ? "light" : "dark";
+        try {
+          localStorage.setItem("pkm_th", r.dataset.theme);
+        } catch (e) {}
+      };
+      try {
+        const s = localStorage.getItem("pkm_th");
+        if (s) document.documentElement.dataset.theme = s;
+      } catch (e) {}
+      $("th").onclick = $("th2").onclick = th;
+      $("mb").onclick = () => $("nv").classList.toggle("o");
+      $("nv").onclick = (e) => {
+        if (e.target.tagName === "A") $("nv").classList.remove("o");
+      };
+    </script>
+  </body>
+</html>
